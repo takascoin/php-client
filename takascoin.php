@@ -14,16 +14,9 @@ class Takascoin {
 	#											orderID,
 	#                                           secret, 
 	#                                           callback,
-	#                                           company,
-	#                                           motto,
-	#                                           logoURL,
-	#                                           addressLine1,
-	#                                           addressLine2,
-	#                                           email,
 	#                                           item,
 	#                                           description,
-	#                                           returnAddress,
-	#                                           escrow 
+	#                                           minconf
 	# Returns   : JSON object
 	#----------------------------------------------------------------
 	public function payment($amount, $apiKey='', $options=array()) 
@@ -55,16 +48,9 @@ class Takascoin {
 	#											orderID,
 	#                                           secret, 
 	#                                           callback,
-	#                                           company,
-	#                                           motto,
-	#                                           logoURL,
-	#                                           addressLine1,
-	#                                           addressLine2,
-	#                                           email,
 	#                                           item,
 	#                                           description,
-	#                                           returnAddress,
-	#                                           escrow 
+	#                                           minconf
 	# Returns   : JSON object
 	#----------------------------------------------------------------
 	public function button($amount, $apiKey='', $options=array())
@@ -78,7 +64,7 @@ class Takascoin {
 		}
 
 		$params = array_merge($options, array('amount'   => $amount,
-		                                      'address'  => $address));
+		                                      'apiKey'   => $apiKey));
 
 		try {
 			$res = $this->apiRequest('/api/takas/button', $params);
@@ -108,16 +94,8 @@ class Takascoin {
 
 
 	#---------------------------------------------------
-	# Get Invoice Status:
-	#		"new"			-> Invoice has just been created and is waiting for payment
-	#		"approved"		-> Transaction is analyzed and approved as valid by our server
-	#		"confirmed"		-> Transaction is confirmed by the network
-	#		"completed"		-> Payment is forwarded to your address and the invoice is completed
-	#		"cancelled"		-> Payment is not received
-	#		"error"			-> An error occured during the process
-	#		"insufficient"	-> User paid insufficient amount, waiting for complimentary payment
-	#
-	# Returns the Status result or an error
+	# Required : $invoiceID
+	# Returns  : JSON object
 	#---------------------------------------------------
 	public function status($invoiceID)
 	{
@@ -134,11 +112,10 @@ class Takascoin {
 	}
 
 
-	#---------------------------------------
-	# Get Invoice by ID
-	# Params : (string) $invoiceID
-	# Returns: (array) $invoice 
-	#---------------------------------------
+	#---------------------------------------------------
+	# Required : $invoiceID
+	# Returns  : JSON object
+	#---------------------------------------------------
 	public function invoice($invoiceID)
 	{
 		try {
@@ -168,8 +145,8 @@ class Takascoin {
 		# Fill post string
 		$postString = json_encode($postArray);
 
-		# $url = "https://coinvoy.net" . $url;
-		$url = "http://178.62.254.129" . $url;
+		$url = "https://coinvoy.net" . $url;
+		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, 1);
