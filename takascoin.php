@@ -176,8 +176,7 @@ class Takascoin {
 	}
 	
 	private function validEmail($email) {
-		if(strlen($email) > 3 && preg_match('/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/', $email)
-            return true;
-        return false;
+		return strlen($email) > 3 
+		   && preg_match('/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/', $email);
 	}
 }
