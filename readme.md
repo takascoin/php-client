@@ -17,12 +17,12 @@ require_once('./takascoin.php');
 
 $takas = new Takascoin();
 
-$amount        = 10;
-$apiKey       = "Takas merchant email";
+$amount  = 10;
+$apiKey  = "Takas merchant email";
 $options = array(
 	'currency' 	  => 'TRY', // OR 'BTC'
 	'item'     	  => 'T-shirt',
-	'description' => '100% cotton natural T-shirt',
+	'description' => '100% cotton natural T-shirt'
 );
 
 $payment = $takas->payment($amount, $apiKey);
@@ -37,8 +37,8 @@ var_dump($payment);
 ```
 
 ###List of all commands:
-- payment($amount, $currency, $address, $options);                - creates payment
-- button($amount, $currency, $address, $options);                 - prepares a button template
+- payment($amount, $apiKey, $options);                            - creates payment
+- button($amount, $apiKey, $options);                             - prepares a button template
 - validateNotification($hash, $orderID, $invoiceID, $secret);     - checks if incoming payment notification is valid.
 - status($invoiceID);                                             - current status of invoice [new,approved,confirmed,completed,cancelled]
 - invoice($invoiceID);                                            - get latest invoice object
